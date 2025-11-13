@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الجدول الدراسي - ألوان مريحة للعين (نهائي)</title>
+    <style>
+        /* الخطوط والأبعاد العامة */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fffff0; /* الخلفية الأساسية: أبيض مصفر ناعم جداً لراحة العين */
+            margin: 20px;
+            color: #212529; /* لون نص داكن وواضح */
+            font-size: 115%; 
+        }
+        h2 {
+            text-align: center;
+            color: #004085; 
+            border-bottom: 3px solid #004085;
+            padding-bottom: 12px;
+            margin-top: 40px;
+            font-size: 2em; 
+            font-weight: bold;
+        }
+        table {
+            width: 95%;
+            margin: 25px auto;
+            border-collapse: collapse;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff; /* خلفية الجدول بيضاء للمحافظة على التباين */
+        }
+        th, td {
+            border: 1px solid #ced4da; 
+            padding: 14px 18px; 
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold; 
+            color: #000000; 
+        }
+        th {
+            background-color: #4db6ac; /* لون رأسي تيل مريح */
+            color: white;
+            font-weight: bolder;
+        }
+        /* تلوين الصفوف الفردية والزوجية */
+        tr:nth-child(even) {
+            background-color: #f1f3f5; /* تظليل فاتح جداً ومريح داخل الجدول */
+        }
+        /* أنماط ثابتة للأنشطة الأساسية (غير الدراسة) */
+        .rest {
+            background-color: #e2f0d9; /* أخضر فاتح وهادئ للراحة الأساسية */
+            color: #212529; 
+        }
+        /* أنماط نظام المكافآت - درجات الباستيل الهادئة */
+        .study-focus {
+            background-color: #b3e5fc; /* أزرق سماوي فاتح جداً */
+            color: #000000; 
+            font-weight: bolder;
+        }
+        .small-break {
+            background-color: #fff59d; /* أصفر باهت وناعم للاستراحة الصغيرة */
+            color: #000000; 
+        }
+        .major-break {
+            background-color: #ffcdd2; /* وردي فاتح وناعم للمكافأة الكبرى */
+            color: #000000; 
+            font-weight: bolder;
+        }
+        /* النمط الجديد للشريط الزمني المتحرك */
+        .current-time {
+            /* يتم تطبيق حدود واضحة لتمييز الوقت الحالي */
+            border: 4px solid #000000 !important; 
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            animation: pulse 1s infinite alternate;
+        }
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.01); }
+        }
+        /* نمط ملخص الأهداف */
+        .summary-table {
+            width: 60%;
+            font-size: 1.2em;
+            margin-top: 30px;
+        }
+        .summary-table th {
+            background-color: #28a745; 
+        }
+    </style>
+</head>
+<body>
+
+    <h2>✨ ملخص إجمالي الأهداف الزمنية 📊</h2>
+
+    <table class="summary-table">
+        <thead>
+            <tr>
+                <th>الهدف</th>
+                <th>الأحد، الاثنين، الثلاثاء</th>
+                <th>الأربعاء، الخميس</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ساعات النوم</td>
+                <td>7 ساعات</td>
+                <td>7 ساعات</td>
+            </tr>
+            <tr>
+                <td>ساعات الدراسة الصافية</td>
+                <td>**7 ساعات و 15 دقيقة**</td>
+                <td>**8 ساعات و 15 دقيقة**</td>
+            </tr>
+            <tr>
+                <td>إجمالي جلسات التركيز (35 دقيقة)</td>
+                <td>12 جلسة</td>
+                <td>13 جلسة</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>📝 جدول حصر الوقت - أيام الدوام المبكر (الأحد، الاثنين، الثلاثاء)</h2>
+
+    <table id="schedule-early">
+        <thead>
+            <tr>
+                <th>🕰️ الوقت</th>
+                <th>⏳ المدة</th>
+                <th>📚 النشاط والتخصيص</th>
+                <th>📌 نوع الجلسة (المكافأة/التركيز)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-start="6:00" data-end="7:00">
+                <td>**6:00 - 7:00 ص**</td>
+                <td>1 ساعة</td>
+                <td class="rest">استيقاظ، صلاة الفجر، فطور</td>
+                <td>تهيئة ذهنية</td>
+            </tr>
+            <tr data-start="7:00" data-end="12:00">
+                <td>**7:00 - 12:00 م**</td>
+                <td>5 ساعات</td>
+                <td>**دوام المدرسة**</td>
+                <td>تركيز في الشرح</td>
+            </tr>
+            <tr data-start="12:00" data-end="13:00">
+                <td>**12:00 - 1:00 م**</td>
+                <td>1 ساعة</td>
+                <td class="rest">صلاة الظهر والغداء</td>
+                <td>استراحة أساسية</td>
+            </tr>
+            <tr data-start="13:00" data-end="14:00">
+                <td>**1:00 - 2:00 م**</td>
+                <td>1 ساعة</td>
+                <td class="rest">**نوم القيلولة**</td>
+                <td>تجديد طاقة الدماغ</td>
+            </tr>
+            <tr data-start="14:00" data-end="14:35">
+                <td>2:00 - 2:35 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 1 (المادة الأصعب)</td>
+                <td>**تركيز شديد**</td>
+            </tr>
+            <tr data-start="14:35" data-end="14:40">
+                <td>2:35 - 2:40 م</td>
+                <td>5 دقائق</td>
+                <td class="small-break">استراحة 1</td>
+                <td>استراحة سريعة</td>
+            </tr>
+            <tr data-start="14:40" data-end="15:00">
+                <td>2:40 - 3:00 م</td>
+                <td>20 دقيقة</td>
+                <td class="study-focus">تركيز 2 (المادة الأصعب) - قصيرة</td>
+                <td>متبقي لكسر الجلسة</td>
+            </tr>
+            <tr data-start="15:00" data-end="15:15">
+                <td>**3:00 - 3:15 م**</td>
+                <td>15 دقيقة</td>
+                <td class="rest">صلاة العصر + استراحة سريعة</td>
+                <td></td>
+            </tr>
+            <tr data-start="15:15" data-end="15:50">
+                <td>3:15 - 3:50 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 3 (المادة المتوسطة)</td>
+                <td>**تركيز شديد**</td>
+            </tr>
+            <tr data-start="15:50" data-end="15:55">
+                <td>3:50 - 3:55 م</td>
+                <td>5 دقائق</td>
+                <td class="small-break">استراحة 3</td>
+                <td>استراحة سريعة</td>
+            </tr>
+            <tr data-start="15:55" data-end="16:30">
+                <td>3:55 - 4:30 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 4 (المادة المتوسطة)</td>
+                <td>**تركيز شديد**</td>
+            </tr>
+            <tr data-start="16:30" data-end="16:40">
+                <td>4:30 - 4:40 م</td>
+                <td>10 دقائق</td>
+                <td class="major-break">**مكافأة كبرى** (10 دقائق)</td>
+                <td>**مكافأة بعد 4 جلسات!**</td>
+            </tr>
+            <tr data-start="16:40" data-end="17:15">
+                <td>4:40 - 5:15 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 5 (المادة المتوسطة)</td>
+                <td>**تركيز شديد**</td>
+            </tr>
+            <tr data-start="17:15" data-end="17:30">
+                <td>**5:15 - 5:30 م**</td>
+                <td>15 دقيقة</td>
+                <td class="rest">صلاة المغرب</td>
+                <td></td>
+            </tr>
+            <tr data-start="17:30" data-end="18:05">
+                <td>5:30 - 6:05 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 6 (مراجعة/حفظيات)</td>
+                <td>**تركيز شديد**</td>
+            </tr>
+            <tr data-start="18:05" data-end="18:10">
+                <td>6:05 - 6:10 م</td>
+                <td>5 دقائق</td>
+                <td class="small-break">استراحة 6</td>
+                <td>استراحة سريعة</td>
+            </tr>
+            <tr data-start="18:10" data-end="18:30">
+                <td>6:10 - 6:30 م</td>
+                <td>20 دقيقة</td>
+                <td class="study-focus">تركيز 7 (مراجعة/حفظيات) - قصيرة</td>
+                <td>متبقي لكسر الجلسة</td>
+            </tr>
+            <tr data-start="18:30" data-end="19:30">
+                <td>**6:30 - 7:30 م**</td>
+                <td>1 ساعة</td>
+                <td class="rest">العشاء وصلاة العشاء</td>
+                <td>استراحة طويلة</td>
+            </tr>
+            <tr data-start="19:30" data-end="20:05">
+                <td>7:30 - 8:05 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 8 (المتأخرات)</td>
+                <td>**تركيز شديد**</td>
+            </tr>
+            <tr data-start="20:05" data-end="20:10">
+                <td>8:05 - 8:10 م</td>
+                <td>5 دقائق</td>
+                <td class="small-break">استراحة 8</td>
+                <td>استراحة سريعة</td>
+            </tr>
+            <tr data-start="20:10" data-end="20:45">
+                <td>8:10 - 8:45 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 9 (المتأخرات)</td>
+                <td>**تركيز شديد**</td>
+            </tr>
+            <tr data-start="20:45" data-end="20:50">
+                <td>8:45 - 8:50 م</td>
+                <td>5 دقائق</td>
+                <td class="small-break">استراحة 9</td>
+                <td>استراحة سريعة</td>
+            </tr>
+            <tr data-start="20:50" data-end="21:25">
+                <td>8:50 - 9:25 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 10 (المتأخرات)</td>
+                <td>**تركيز شديد**</td>
+            </tr>
+            <tr data-start="21:25" data-end="21:30">
+                <td>9:25 - 9:30 م</td>
+                <td>5 دقائق</td>
+                <td class="small-break">استراحة 10</td>
+                <td>استراحة سريعة</td>
+            </tr>
+            <tr data-start="21:30" data-end="22:05">
+                <td>9:30 - 10:05 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 11 (المتأخرات)</td>
+                <td>**تركيز شديد**</td>
+            </tr>
+            <tr data-start="22:05" data-end="22:15">
+                <td>10:05 - 10:15 م</td>
+                <td>10 دقائق</td>
+                <td class="major-break">**مكافأة كبرى** (10 دقائق)</td>
+                <td>**مكافأة بعد 4 جلسات!**</td>
+            </tr>
+            <tr data-start="22:15" data-end="22:30">
+                <td>10:15 - 10:30 م</td>
+                <td>15 دقيقة</td>
+                <td class="study-focus">تركيز 12 (المتأخرات) - قصيرة</td>
+                <td>إنهاء ما تبقى</td>
+            </tr>
+            <tr data-start="22:30" data-end="23:00">
+                <td>**10:30 - 11:00 م**</td>
+                <td>30 دقيقة</td>
+                <td class="rest">تنظيم وترتيب جدول الغد</td>
+                <td></td>
+            </tr>
+            <tr data-start="23:00" data-end="6:00">
+                <td>**11:00 م - 6:00 ص**</td>
+                <td>7 ساعات</td>
+                <td class="rest">**النوم**</td>
+                <td>التزام تام.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>📝 جدول حصر الوقت - أيام الدوام المتأخر (الأربعاء، الخميس)</h2>
+
+    <table id="schedule-late">
+        <thead>
+            <tr>
+                <th>🕰️ الوقت</th>
+                <th>⏳ المدة</th>
+                <th>📚 النشاط والتخصيص</th>
+                <th>📌 نوع الجلسة (المكافأة/التركيز)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-start="6:00" data-end="7:00">
+                <td>**6:00 - 7:00 ص**</td>
+                <td>1 ساعة</td>
+                <td class="rest">استيقاظ، صلاة الفجر، فطور</td>
+                <td></td>
+            </tr>
+            <tr data-start="7:00" data-end="7:35">
+                <td>7:00 - 7:35 ص</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 1 (المادة الأصعب)</td>
+                <td>**أهم جلسة!**</td>
+            </tr>
+            <tr data-start="7:35" data-end="7:40">
+                <td>7:35 - 7:40 ص</td>
+                <td>5 دقائق</td>
+                <td class="small-break">استراحة 1</td>
+                <td>استراحة سريعة</td>
+            </tr>
+            <tr data-start="7:40" data-end="8:15">
+                <td>7:40 - 8:15 ص</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 2 (المادة الأصعب)</td>
+                <td></td>
+            </tr>
+            <tr data-start="8:15" data-end="8:20">
+                <td>8:15 - 8:20 ص</td>
+                <td>5 دقائق</td>
+                <td class="small-break">استراحة 2</td>
+                <td></td>
+            </tr>
+            <tr data-start="8:20" data-end="8:55">
+                <td>8:20 - 8:55 ص</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 3 (المادة الأصعب)</td>
+                <td></td>
+            </tr>
+            <tr data-start="8:55" data-end="9:00">
+                <td>8:55 - 9:00 ص</td>
+                <td>5 دقائق</td>
+                <td class="small-break">استراحة 3</td>
+                <td></td>
+            </tr>
+            <tr data-start="9:00" data-end="9:35">
+                <td>9:00 - 9:35 ص</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 4 (المادة الأصعب)</td>
+                <td></td>
+            </tr>
+            <tr data-start="9:35" data-end="9:45">
+                <td>9:35 - 9:45 ص</td>
+                <td>10 دقائق</td>
+                <td class="major-break">**مكافأة كبرى** (10 دقائق)</td>
+                <td>**مكافأة بعد 4 جلسات!**</td>
+            </tr>
+            <tr data-start="9:45" data-end="10:20">
+                <td>9:45 - 10:20 ص</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 5 (المادة الأصعب)</td>
+                <td></td>
+            </tr>
+            <tr data-start="10:20" data-end="10:25">
+                <td>10:20 - 10:25 ص</td>
+                <td>5 دقائق</td>
+                <td class="small-break">استراحة 5</td>
+                <td></td>
+            </tr>
+            <tr data-start="10:25" data-end="11:00">
+                <td>10:25 - 11:00 ص</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 6 (المادة الأصعب)</td>
+                <td></td>
+            </tr>
+            <tr data-start="11:00" data-end="17:00">
+                <td>**11:00 - 5:00 م**</td>
+                <td>6 ساعات</td>
+                <td>**دوام المدرسة**</td>
+                <td>يشمل صلاة الظهر والغداء.</td>
+            </tr>
+            <tr data-start="17:00" data-end="17:15">
+                <td>**5:00 - 5:15 م**</td>
+                <td>15 دقيقة</td>
+                <td class="rest">صلاة المغرب</td>
+                <td></td>
+            </tr>
+            <tr data-start="17:15" data-end="17:50">
+                <td>5:15 - 5:50 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 7 (مادة سريعة/مراجعة)</td>
+                <td></td>
+            </tr>
+            <tr data-start="17:50" data-end="17:55">
+                <td>5:50 - 5:55 م</td>
+                <td>5 دقائق</td>
+                <td class="small-break">استراحة 7</td>
+                <td></td>
+            </tr>
+            <tr data-start="17:55" data-end="18:30">
+                <td>5:55 - 6:30 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 8 (مادة سريعة/مراجعة)</td>
+                <td></td>
+            </tr>
+            <tr data-start="18:30" data-end="19:30">
+                <td>**6:30 - 7:30 م**</td>
+                <td>1 ساعة</td>
+                <td class="rest">العشاء وصلاة العشاء</td>
+                <td></td>
+            </tr>
+            <tr data-start="19:30" data-end="20:05">
+                <td>7:30 - 8:05 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 9 (المادة الثانية المتأخرة)</td>
+                <td></td>
+            </tr>
+            <tr data-start="20:05" data-end="20:10">
+                <td>8:05 - 8:10 م</td>
+                <td>5 دقائق</td>
+                <td class="small-break">استراحة 9</td>
+                <td></td>
+            </tr>
+            <tr data-start="20:10" data-end="20:45">
+                <td>8:10 - 8:45 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 10 (المادة الثانية المتأخرة)</td>
+                <td></td>
+            </tr>
+            <tr data-start="20:45" data-end="20:50">
+                <td>8:45 - 8:50 م</td>
+                <td>5 دقائق</td>
+                <td class="small-break">استراحة 10</td>
+                <td></td>
+            </tr>
+            <tr data-start="20:50" data-end="21:25">
+                <td>8:50 - 9:25 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 11 (المادة الثانية المتأخرة)</td>
+                <td></td>
+            </tr>
+            <tr data-start="21:25" data-end="21:30">
+                <td>9:25 - 9:30 م</td>
+                <td>5 دقائق</td>
+                <td class="small-break">استراحة 11</td>
+                <td></td>
+            </tr>
+            <tr data-start="21:30" data-end="22:05">
+                <td>9:30 - 10:05 م</td>
+                <td>35 دقيقة</td>
+                <td class="study-focus">تركيز 12 (المادة الثانية المتأخرة)</td>
+                <td></td>
+            </tr>
+            <tr data-start="22:05" data-end="22:15">
+                <td>10:05 - 10:15 م</td>
+                <td>10 دقائق</td>
+                <td class="major-break">**مكافأة كبرى** (10 دقائق)</td>
+                <td>**مكافأة بعد 4 جلسات!**</td>
+            </tr>
+            <tr data-start="22:15" data-end="22:30">
+                <td>10:15 - 10:30 م</td>
+                <td>15 دقيقة</td>
+                <td class="study-focus">تركيز 13 (المادة الثانية المتأخرة) - قصيرة</td>
+                <td>إنهاء ما تبقى</td>
+            </tr>
+            <tr data-start="22:30" data-end="23:00">
+                <td>**10:30 - 11:00 م**</td>
+                <td>30 دقيقة</td>
+                <td class="rest">تنظيم وترتيب جدول الغد</td>
+                <td></td>
+            </tr>
+            <tr data-start="23:00" data-end="6:00">
+                <td>**11:00 م - 6:00 ص**</td>
+                <td>7 ساعات</td>
+                <td class="rest">**النوم**</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        // دالة لتظليل الصف الموافق للوقت الحالي
+        function updateTimeMarker() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+            const day = now.getDay(); 
+
+            // دالة مساعدة لتحويل الوقت (ساعة:دقيقة) إلى دقائق منذ منتصف الليل
+            function timeToMinutes(timeStr) {
+                const [h, m] = timeStr.split(':').map(Number);
+                return h * 60 + m;
+            }
+
+            const currentTimeInMinutes = currentHour * 60 + currentMinute;
+            
+            // تحديد أي جدول هو الجدول النشط بناءً على اليوم
+            let targetTableId;
+            // الأحد (0), الاثنين (1), الثلاثاء (2) - دوام مبكر
+            if (day >= 0 && day <= 2) { 
+                targetTableId = 'schedule-early';
+            // الأربعاء (3), الخميس (4) - دوام متأخر
+            } else if (day === 3 || day === 4) { 
+                targetTableId = 'schedule-late';
+            } else { 
+                // إزالة التظليل في أيام الجمعة والسبت
+                document.querySelectorAll('tr').forEach(row => {
+                    row.classList.remove('current-time');
+                });
+                return; 
+            }
+
+            const targetTable = document.getElementById(targetTableId);
+            if (!targetTable) return;
+
+            // إزالة التظليل القديم من جميع الصفوف
+            document.querySelectorAll('tr').forEach(row => {
+                row.classList.remove('current-time');
+            });
+
+            // تطبيق التظليل على الصف الحالي في الجدول النشط
+            targetTable.querySelectorAll('tr[data-start]').forEach(row => {
+                const startTimeStr = row.getAttribute('data-start');
+                const endTimeStr = row.getAttribute('data-end');
+                
+                const startMinutes = timeToMinutes(startTimeStr);
+                let endMinutes = timeToMinutes(endTimeStr);
+                
+                let checkCurrentTime = currentTimeInMinutes;
+
+                // معالجة حالة النوم التي تعبر منتصف الليل (23:00 إلى 6:00)
+                if (endMinutes < startMinutes) {
+                    endMinutes += 24 * 60; 
+                }
+                if (checkCurrentTime < startMinutes && checkCurrentTime < 60 * 6) { // قبل 6 صباحًا
+                    checkCurrentTime += 24 * 60; 
+                }
+                
+                // التحقق: هل الوقت الحالي يقع بين وقت البدء ووقت الانتهاء؟
+                if (checkCurrentTime >= startMinutes && checkCurrentTime < endMinutes) {
+                    row.classList.add('current-time');
+                }
+            });
+        }
+
+        // تشغيل الدالة عند تحميل الصفحة، ثم تحديثها كل 60 ثانية
+        document.addEventListener('DOMContentLoaded', updateTimeMarker);
+        setInterval(updateTimeMarker, 60000); 
+    </script>
+
+</body>
+</html>
