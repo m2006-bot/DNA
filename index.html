@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جدولي الدراسي اليومي - تصميم عصري (تحكم يدوي كامل)</title>
+    <title>جدولي الدراسي اليومي - تصميم عصري (شبكة في كل الشاشات)</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* --------------------------------- */
@@ -66,7 +66,7 @@
         }
 
         /* --------------------------------- */
-        /* تخطيط الجدول (Grid Layout) */
+        /* تخطيط الجدول (Grid Layout) - التنسيق العام */
         /* --------------------------------- */
         .schedule-grid-wrapper {
             width: 100%;
@@ -74,6 +74,7 @@
         }
 
         .schedule-grid {
+            /* تضمن ظهور ما لا يقل عن 280px في الشاشات الكبيرة */
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px; 
@@ -144,7 +145,7 @@
         }
         
         /* --------------------------------- */
-        /* التظليل حسب النوع والوقت */
+        /* التظليل والإنجاز */
         /* --------------------------------- */
 
         /* الأنماط الجديدة */
@@ -181,7 +182,7 @@
         }
 
         /* --------------------------------- */
-        /* Media Queries (للهواتف) */
+        /* Media Queries (للهواتف والأجهزة الضيقة) - تم التغيير هنا */
         /* --------------------------------- */
         @media (max-width: 600px) {
             body {
@@ -189,24 +190,30 @@
             }
             
             .schedule-grid-wrapper {
-                overflow-x: auto;
-                padding-bottom: 15px; 
+                /* إزالة التمرير الأفقي الزائد */
+                overflow-x: hidden; 
+                padding-bottom: 0; 
             }
             
             .schedule-grid {
-                display: flex;
-                flex-wrap: nowrap;
+                /* فرض تنسيق الشبكة على الشاشات الصغيرة مع حد أدنى أصغر للبطاقة */
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* تصغير الحد الأدنى */
                 gap: 15px;
-                padding-right: 15px; 
+                padding-right: 0; 
             }
             
             .activity-card {
-                flex-shrink: 0;
-                width: 260px; 
+                /* لم تعد هناك حاجة لتحديد عرض ثابت أو منع الانكماش */
+                flex-shrink: 1; 
+                width: auto;
             }
             
             .card-time {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -327,7 +334,7 @@
             }
         }
 
-        // 1. بناء البطاقات في HTML (تمت إزالة منطق التتبع التلقائي)
+        // 1. بناء البطاقات في HTML
         function renderScheduleCards() {
             const scheduleInfo = getCurrentScheduleData();
             const gridContainer = document.getElementById('schedule-display');
@@ -355,17 +362,14 @@
                 card.setAttribute('data-type', item.type); 
                 
                 const localStorageKey = `${keyPrefix}-row-${index}`;
-                // يتم التحقق من حالة الإنجاز في التخزين المحلي لكل بطاقة
                 const isChecked = localStorage.getItem(localStorageKey) === 'true';
 
                 if (isChecked) {
                     card.classList.add('completed-card');
                 }
                 
-                // استخدام دالة تنسيق الوقت 12 ساعة
                 const displayTime = `${formatTime12h(item.start)} - ${formatTime12h(item.end)}`;
 
-                // تصميم مربع الإنجاز (يظهر الآن في كل البطاقات)
                 const footerContent = `
                     <label class="achievement-checkbox" style="display: flex; align-items: center; gap: 8px; font-weight: 600;">
                         تم الإنجاز
@@ -403,7 +407,6 @@
         function updateProgressBar(day) {
             const cards = document.querySelectorAll(`.activity-card[data-day="${day}"]`);
             
-            // حساب إجمالي المهام والمهام المنجزة بناءً على مربعات الاختيار
             const allCards = Array.from(cards);
             const totalTasks = allCards.length;
             let completedTasks = 0;
@@ -412,7 +415,6 @@
                 const key = card.getAttribute('data-key');
                 if (localStorage.getItem(key) === 'true') {
                     completedTasks++;
-                    // التأكد من تظليل البطاقة المنجزة
                     if (!card.classList.contains('completed-card')) {
                          card.classList.add('completed-card');
                     }
@@ -425,7 +427,6 @@
             const progressText = document.getElementById('progress-text');
             const progressStatus = document.getElementById('progress-status');
 
-            // النسبة المئوية تعتمد على عدد المهام المنجزة من الإجمالي
             const percentage = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
             const percentageFixed = Math.min(percentage, 100).toFixed(0); 
 
@@ -459,7 +460,7 @@
             progressStatus.innerHTML = statusText;
         }
 
-        // 3. حفظ حالة الإنجاز ( unchanged )
+        // 3. حفظ حالة الإنجاز
         function saveAchievement(event) {
             const checkbox = event.target;
             const key = checkbox.getAttribute('data-key');
@@ -485,7 +486,6 @@
             const now = new Date();
             let currentTimeInMinutes = timeToMinutes(now.getHours() + ':' + now.getMinutes());
             
-            // 1. إزالة التظليل من جميع البطاقات أولاً
             document.querySelectorAll('.activity-card').forEach(card => {
                 card.classList.remove('current-time');
             });
@@ -507,13 +507,16 @@
                     } 
                 }
                 
-                // إذا كان الوقت الحالي داخل حدود النشاط
                 if (checkTime >= startMinutes && checkTime < endMinutes) {
                     card.classList.add('current-time');
                     
                     // التمرير التلقائي 
                     setTimeout(() => {
-                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        // يجب أن يتم التمرير فقط إذا لم تكن البطاقة مرئية بالكامل 
+                        const isVisible = card.getBoundingClientRect().top >= 0 && card.getBoundingClientRect().bottom <= (window.innerHeight || document.documentElement.clientHeight);
+                        if (!isVisible) {
+                            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
                     }, 100); 
                 }
             });
@@ -525,16 +528,13 @@
             const lastDay = localStorage.getItem('lastScheduleDay');
 
             if (lastDay !== today) {
-                // إذا كان يوم جديد، امسح كل الإنجازات المحفوظة
                 for (let i = 0; i < localStorage.length; i++) {
                     const key = localStorage.key(i);
-                    // مسح أي مفتاح يتضمن 'row-' وهو جزء من بيانات الجدول
                     if (key && key.includes('row-')) { 
                         localStorage.removeItem(key);
                     }
                 }
                 localStorage.setItem('lastScheduleDay', today);
-                // إعادة بناء البطاقات لتنعكس الإزالة
                 renderScheduleCards(); 
             }
         }
